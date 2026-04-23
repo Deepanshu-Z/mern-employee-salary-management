@@ -12,6 +12,14 @@ import {
 } from "../../../../config/redux/action";
 import { ButtonOne, ButtonTwo } from "../../../atoms";
 
+const formatDateDDMMYYYY = (dateValue = new Date()) => {
+    const date = new Date(dateValue);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+};
+
 const PrintPdfSlipSalary = () => {
     const componentRef = useRef();
     const dispatch = useDispatch();
@@ -235,7 +243,7 @@ const PrintPdfSlipSalary = () => {
                                     <span>{name}</span>
                                 </div>
                                 <div className="font-medium text-black dark:text-white">
-                                    <span className="text-right">Karawang, {`${new Date().getDate()} ${month} ${year}`}</span>
+                                    <span className="text-right">Karawang, {formatDateDDMMYYYY()}</span>
                                     <br />
                                     <span>Finance</span>
                                     <br />
@@ -244,7 +252,7 @@ const PrintPdfSlipSalary = () => {
                                 </div>
                             </div>
                             <div className="italic text-black dark:text-white mt-30">
-                                Dicetak Pada : {`${new Date().getDate()} ${month} ${year}`}
+                                Printed On: {formatDateDDMMYYYY()}
                             </div>
                         </div>
                     );
