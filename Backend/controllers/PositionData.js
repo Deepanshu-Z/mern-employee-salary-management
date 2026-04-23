@@ -2,6 +2,16 @@ import PositionData from "../models/PositionDataModel.js";
 import EmployeeData from "../models/EmployeeDataModel.js";
 import { Op } from "sequelize";
 
+const parsePositiveNumber = (value, label) => {
+    const parsedValue = Number(value);
+
+    if (!Number.isFinite(parsedValue) || parsedValue <= 0) {
+        return { error: `${label} must be a positive number.` };
+    }
+
+    return { value: parsedValue };
+};
+
 // display semua data position
 export const getPositionData = async (req, res) => {
     try {
@@ -56,14 +66,28 @@ export const createPositionData = async (req, res) => {
     const {
         position_id, position_name, base_salary, transport_allowance, meal_allowance
     } = req.body;
+
+    const baseSalaryValidation = parsePositiveNumber(base_salary, "Base salary");
+    const transportAllowanceValidation = parsePositiveNumber(transport_allowance, "Transport allowance");
+    const mealAllowanceValidation = parsePositiveNumber(meal_allowance, "Meal allowance");
+
+    if (baseSalaryValidation.error || transportAllowanceValidation.error || mealAllowanceValidation.error) {
+        return res.status(422).json({
+            msg:
+                baseSalaryValidation.error ||
+                transportAllowanceValidation.error ||
+                mealAllowanceValidation.error,
+        });
+    }
+
     try {
         if (req.access_role === "admin") {
             await PositionData.create({
                 position_id: position_id,
                 position_name: position_name,
-                base_salary: base_salary,
-                transport_allowance: transport_allowance,
-                meal_allowance: meal_allowance,
+                base_salary: baseSalaryValidation.value,
+                transport_allowance: transportAllowanceValidation.value,
+                meal_allowance: mealAllowanceValidation.value,
                 userId: req.userId
             });
         } else {
@@ -94,9 +118,26 @@ export const updatePositionData = async (req, res) => {
         });
         if (!position) return res.status(404).json({ msg: "Data not found" });
         const { position_name, base_salary, transport_allowance, meal_allowance } = req.body;
+
+        const baseSalaryValidation = parsePositiveNumber(base_salary, "Base salary");
+        const transportAllowanceValidation = parsePositiveNumber(transport_allowance, "Transport allowance");
+        const mealAllowanceValidation = parsePositiveNumber(meal_allowance, "Meal allowance");
+
+        if (baseSalaryValidation.error || transportAllowanceValidation.error || mealAllowanceValidation.error) {
+            return res.status(422).json({
+                msg:
+                    baseSalaryValidation.error ||
+                    transportAllowanceValidation.error ||
+                    mealAllowanceValidation.error,
+            });
+        }
+
         if (req.access_role === "admin") {
             await PositionData.update({
-                position_name, base_salary, transport_allowance, meal_allowance
+                position_name,
+                base_salary: baseSalaryValidation.value,
+                transport_allowance: transportAllowanceValidation.value,
+                meal_allowance: mealAllowanceValidation.value
             }, {
                 where: {
                     id: position.id
@@ -105,7 +146,10 @@ export const updatePositionData = async (req, res) => {
         } else {
             if (req.userId !== PositionData.userId) return res.status(403).json({ msg: "Access forbidden" });
             await PositionData.update({
-                position_name, base_salary, transport_allowance, meal_allowance
+                position_name,
+                base_salary: baseSalaryValidation.value,
+                transport_allowance: transportAllowanceValidation.value,
+                meal_allowance: mealAllowanceValidation.value
             }, {
                 where: {
                     [Op.and]: [{ position_id: position.position_id }, { userId: req.userId }]

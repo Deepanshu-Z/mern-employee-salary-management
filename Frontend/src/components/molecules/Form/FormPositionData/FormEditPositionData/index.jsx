@@ -39,6 +39,22 @@ const FormEditPositionData = () => {
 
     const updatePositionData = async (e) => {
         e.preventDefault();
+        const numericValues = [
+            { value: Number(salaryPokok), label: "Base salary" },
+            { value: Number(tjTransport), label: "Transport allowance" },
+            { value: Number(uangMakan), label: "Meal allowance" },
+        ];
+
+        const invalidInput = numericValues.find(({ value }) => !Number.isFinite(value) || value <= 0);
+        if (invalidInput) {
+            Swal.fire({
+                icon: "error",
+                title: "Validation Error",
+                text: `${invalidInput.label} must be a positive number.`,
+            });
+            return;
+        }
+
         try {
             const formData = new FormData();
             formData.append('position_name', namePosition);
@@ -120,6 +136,7 @@ const FormEditPositionData = () => {
                                             type='number'
                                             id='salaryPokok'
                                             name='salaryPokok'
+                                            min='1'
                                             value={salaryPokok}
                                             onChange={(e) => setSalaryPokok(e.target.value)}
                                             required
@@ -138,6 +155,7 @@ const FormEditPositionData = () => {
                                             type='number'
                                             id='tjTransport'
                                             name='tjTransport'
+                                            min='1'
                                             value={tjTransport}
                                             onChange={(e) => setTjTransport(e.target.value)}
                                             required
@@ -154,6 +172,7 @@ const FormEditPositionData = () => {
                                             type='number'
                                             id='uangMakan'
                                             name='uangMakan'
+                                            min='1'
                                             value={uangMakan}
                                             onChange={(e) => setUangMakan(e.target.value)}
                                             required

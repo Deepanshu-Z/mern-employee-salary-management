@@ -23,6 +23,16 @@ const FormAddDeductionData = () => {
 
     const submitDeductionData = (e) => {
         e.preventDefault();
+        const parsedDeductionAmount = Number(jmlDeduction);
+        if (!Number.isFinite(parsedDeductionAmount) || parsedDeductionAmount <= 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Validation Error",
+                text: "Deduction amount must be a positive number.",
+            });
+            return;
+        }
+
         const newFormData = new FormData();
         newFormData.append('deduction', deduction);
         newFormData.append('deduction_amount', jmlDeduction);
@@ -123,6 +133,7 @@ const FormAddDeductionData = () => {
                                             type='number'
                                             id='jmlDeduction'
                                             name='jmlDeduction'
+                                            min='1'
                                             value={jmlDeduction}
                                             onChange={handleChange}
                                             required

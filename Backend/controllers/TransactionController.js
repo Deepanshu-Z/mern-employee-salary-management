@@ -5,6 +5,16 @@ import SalaryDeduction from "../models/SalaryDeductionModel.js";
 import moment from "moment";
 import "moment/locale/id.js";
 
+const parsePositiveNumber = (value, label) => {
+  const parsedValue = Number(value);
+
+  if (!Number.isFinite(parsedValue) || parsedValue <= 0) {
+    return { error: `${label} must be a positive number.` };
+  }
+
+  return { value: parsedValue };
+};
+
 // method for display semua Data Attendance
 export const viewAttendanceData = async (req, res) => {
   let resultAttendanceData = [];
@@ -185,6 +195,12 @@ export const deleteAttendanceData = async (req, res) => {
 // method for create data deduction salary
 export const createDeductionSalaryData = async (req, res) => {
   const { id, deduction, deduction_amount } = req.body;
+  const deductionAmountValidation = parsePositiveNumber(deduction_amount, "Deduction amount");
+
+  if (deductionAmountValidation.error) {
+    return res.status(422).json({ msg: deductionAmountValidation.error });
+  }
+
   try {
     const name_deduction = await SalaryDeduction.findOne({
       where: {
@@ -197,7 +213,7 @@ export const createDeductionSalaryData = async (req, res) => {
       await SalaryDeduction.create({
         id: id,
         deduction: deduction,
-        deduction_amount: deduction_amount.toLocaleString(),
+        deduction_amount: deductionAmountValidation.value,
       });
       res.json({ msg: "Tambah Data Deduction Salary Berhasil" });
     }
@@ -235,8 +251,19 @@ export const viewDeductionDataByID = async (req, res) => {
 
 // method for update Data Deduction
 export const updateDeductionData = async (req, res) => {
+  const deductionAmountValidation = parsePositiveNumber(req.body.deduction_amount, "Deduction amount");
+
+  if (deductionAmountValidation.error) {
+    return res.status(422).json({ msg: deductionAmountValidation.error });
+  }
+
   try {
-    await SalaryDeduction.update(req.body, {
+    await SalaryDeduction.update(
+      {
+        ...req.body,
+        deduction_amount: deductionAmountValidation.value,
+      },
+      {
       where: {
         id: req.params.id,
       },

@@ -27,6 +27,22 @@ const FormAddPositionData = () => {
 
     const submitPositionData = (e) => {
         e.preventDefault();
+        const numericValues = [
+            { value: Number(salaryPokok), label: "Base salary" },
+            { value: Number(tjTransport), label: "Transport allowance" },
+            { value: Number(uangMakan), label: "Meal allowance" },
+        ];
+
+        const invalidInput = numericValues.find(({ value }) => !Number.isFinite(value) || value <= 0);
+        if (invalidInput) {
+            Swal.fire({
+                icon: "error",
+                title: "Validation Error",
+                text: `${invalidInput.label} must be a positive number.`,
+            });
+            return;
+        }
+
         const newFormData = new FormData();
         newFormData.append('position_name', namePosition);
         newFormData.append('base_salary', salaryPokok);
@@ -128,6 +144,7 @@ const FormAddPositionData = () => {
                                             type='number'
                                             id='salaryPokok'
                                             name='salaryPokok'
+                                            min='1'
                                             value={salaryPokok}
                                             onChange={handleChange}
                                             required
@@ -146,6 +163,7 @@ const FormAddPositionData = () => {
                                             type='number'
                                             id='tjTransport'
                                             name='tjTransport'
+                                            min='1'
                                             value={tjTransport}
                                             onChange={handleChange}
                                             required
@@ -162,6 +180,7 @@ const FormAddPositionData = () => {
                                             type='number'
                                             id='uangMakan'
                                             name='uangMakan'
+                                            min='1'
                                             value={uangMakan}
                                             onChange={handleChange}
                                             required
