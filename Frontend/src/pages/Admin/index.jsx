@@ -7,6 +7,7 @@ import ChangePasswordAdmin from './SettingsAdmin/ChangePasswordAdmin';
 import AttendanceData from './Transaction/AttendanceData';
 import SalaryData from './Transaction/SalaryData';
 import DeductionData from './Transaction/DeductionData';
+import OvertimeEntry from './Transaction/OvertimeEntry';
 
 export {
     ReportAttendance,
@@ -17,5 +18,6 @@ export {
     ChangePasswordAdmin,
     AttendanceData,
     SalaryData,
-    DeductionData
+    DeductionData,
+    OvertimeEntry
 };

@@ -44,6 +44,10 @@ import {
     viewSalaryDataEmployeeByMonth,
     viewSalaryDataEmployeeByYear
 } from "../controllers/TransactionController.js";
+import {
+    createOvertimeEntry,
+    getOvertimeEntries,
+} from "../controllers/OvertimeController.js";
 
 import {
     viewReportAttendanceEmployeeByMonth,
@@ -103,6 +107,9 @@ router.get('/employee_salary_data', viewSalaryDataEmployee);
 router.get('/salary_data/name/:name', verifyUser, viewSalaryDataByName);
 router.get('/employee_salary_data/month/:month', viewSalaryDataEmployeeByMonth);
 router.get('/employee_salary_data/year/:year', viewSalaryDataEmployeeByYear);
+// Overtime Entry
+router.get('/overtime_entries', verifyUser, adminOnly, getOvertimeEntries);
+router.post('/overtime_entries', verifyUser, adminOnly, createOvertimeEntry);
 
 /* ====  Report  ==== */
 // report Salary Employee

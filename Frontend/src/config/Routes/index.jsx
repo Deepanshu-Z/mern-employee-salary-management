@@ -26,6 +26,7 @@ import {
   PositionData,
   AttendanceData,
   SalaryData,
+  OvertimeEntry,
   ReportSalary,
   ReportAttendance,
   SlipSalary,
@@ -98,6 +99,10 @@ const AppRoutes = () => {
       <Route
         path='/data-salary'
         element={<SalaryData />}
+      />
+      <Route
+        path='/overtime-entry'
+        element={<OvertimeEntry />}
       />
       <Route
         path='/data-salary/detail-data-salary/name/:name'
