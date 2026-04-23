@@ -9,11 +9,13 @@ import { getMe } from '../../../../../config/redux/action';
 import Swal from 'sweetalert2';
 
 const FormEditEmployeeData = () => {
+    const designationOptions = ["Mason", "Electrician", "Plumber", "Supervisor", "Helper"];
     const [national_id, setNik] = useState('');
     const [nameEmployee, setNameEmployee] = useState('');
     const [username, setUsername] = useState('');
     const [jenisKelamin, setGender] = useState('');
     const [position, setPosition] = useState('');
+    const [designation, setDesignation] = useState('');
     const [tanggalMasuk, setJoinDate] = useState('');
     const [status, setStatus] = useState('');
     const [hakAkses, setAccessRole] = useState('');
@@ -33,6 +35,7 @@ const FormEditEmployeeData = () => {
             formData.append('username', username);
             formData.append('gender', jenisKelamin);
             formData.append('position', position);
+            formData.append('designation', designation);
             formData.append('join_date', tanggalMasuk);
             formData.append('status', status);
             formData.append('access_role', hakAkses);
@@ -70,6 +73,7 @@ const FormEditEmployeeData = () => {
                 setUsername(data.username);
                 setGender(data.gender);
                 setPosition(data.position);
+                setDesignation(data.designation);
                 setJoinDate(data.join_date);
                 setStatus(data.status);
                 setAccessRole(data.access_role);
@@ -197,6 +201,29 @@ const FormEditEmployeeData = () => {
                                             placeholder='Masukkan position'
                                             className='w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                                         />
+                                    </div>
+                                    <div className='w-full xl:w-1/2'>
+                                        <label className='mb-2.5 block text-black dark:text-white'>
+                                            Designation <span className='text-meta-1'>*</span>
+                                        </label>
+                                        <div className='relative z-20 bg-transparent dark:bg-form-input'>
+                                            <select
+                                                className='relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
+                                                id='designation'
+                                                name='designation'
+                                                value={designation}
+                                                onChange={(e) => setDesignation(e.target.value)}
+                                                required={true}
+                                            >
+                                                <option value='' disabled={true}>Select designation</option>
+                                                {designationOptions.map((option) => (
+                                                    <option key={option} value={option}>{option}</option>
+                                                ))}
+                                            </select>
+                                            <span className='absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl'>
+                                                <MdOutlineKeyboardArrowDown />
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className='w-full xl:w-1/2'>
                                         <label className='mb-2.5 block text-black dark:text-white'>

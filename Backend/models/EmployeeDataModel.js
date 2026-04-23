@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize';
 import db from '../config/Database.js';
 
 const {DataTypes} = Sequelize;
+const DESIGNATION_OPTIONS = ["Mason", "Electrician", "Plumber", "Supervisor", "Helper"];
 
 const EmployeeData = db.define('employee_data', {
     employee_id:{
@@ -34,6 +35,14 @@ const EmployeeData = db.define('employee_data', {
     position: {
         type: DataTypes.STRING(50),
         allowNull: false
+    },
+    designation: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        defaultValue: "Helper",
+        validate: {
+            isIn: [DESIGNATION_OPTIONS]
+        }
     },
     join_date: {
         type: DataTypes.STRING,

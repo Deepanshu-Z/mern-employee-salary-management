@@ -195,6 +195,7 @@ const EmployeeData = () => {
                                 <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">Photo</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">NATIONAL_ID</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Name Employee</th>
+                                <th className="py-4 px-4 font-medium text-black dark:text-white">Designation</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Date Masuk</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Status</th>
@@ -221,6 +222,9 @@ const EmployeeData = () => {
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">{data.employee_name}</p>
+                                        </td>
+                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                            <p className="text-black dark:text-white">{data.designation}</p>
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">{data.gender}</p>

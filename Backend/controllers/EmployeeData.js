@@ -2,13 +2,23 @@ import EmployeeData from "../models/EmployeeDataModel.js";
 import argon2 from "argon2";
 import path from "path";
 
+const DESIGNATION_OPTIONS = ["Mason", "Electrician", "Plumber", "Supervisor", "Helper"];
+
+const validateDesignation = (designation) => {
+    if (!designation) return "Designation is required";
+    if (!DESIGNATION_OPTIONS.includes(designation)) {
+        return "Designation is invalid";
+    }
+    return null;
+};
+
 // display semua data Employee
 export const getEmployeeData = async (req, res) => {
     try {
         const response = await EmployeeData.findAll({
             attributes: [
                 'id', 'national_id', 'employee_name',
-                'gender', 'position', 'join_date',
+                'gender', 'position', 'designation', 'join_date',
                 'status', 'photo', 'access_role'
             ]
         });
@@ -24,7 +34,7 @@ export const getEmployeeDataByID = async (req, res) => {
         const response = await EmployeeData.findOne({
             attributes: [
                 'id', 'national_id', 'employee_name',
-                'gender', 'position', 'username', 'join_date',
+                'gender', 'position', 'designation', 'username', 'join_date',
                 'status', 'photo', 'access_role'
             ],
             where: {
@@ -47,7 +57,7 @@ export const getEmployeeDataByNik = async (req, res) => {
         const response = await EmployeeData.findOne({
             attributes: [
                 'id', 'national_id', 'employee_name',
-                'gender', 'position', 'join_date',
+                'gender', 'position', 'designation', 'join_date',
                 'status', 'photo', 'access_role'
             ],
             where: {
@@ -71,7 +81,7 @@ export const getEmployeeDataByName = async (req, res) => {
         const response = await EmployeeData.findOne({
             attributes: [
                 'id', 'national_id', 'employee_name',
-                'gender', 'position', 'join_date',
+                'gender', 'position', 'designation', 'join_date',
                 'status', 'photo', 'access_role'
             ],
             where: {
@@ -93,7 +103,7 @@ export const createEmployeeData = async (req, res) => {
     const {
         national_id, employee_name,
         username, password, confPassword, gender,
-        position, join_date,
+        position, designation, join_date,
         status, access_role
     } = req.body;
 
@@ -103,6 +113,11 @@ export const createEmployeeData = async (req, res) => {
 
     if (!req.files || !req.files.photo) {
         return res.status(400).json({ msg: "Photo upload failed. Please upload again." });
+    }
+
+    const designationError = validateDesignation(designation);
+    if (designationError) {
+        return res.status(422).json({ msg: designationError });
     }
 
     const file = req.files.photo;
@@ -135,6 +150,7 @@ export const createEmployeeData = async (req, res) => {
                 password: hashPassword,
                 gender: gender,
                 position: position,
+                designation: designation,
                 join_date: join_date,
                 status: status,
                 photo: fileName,
@@ -163,9 +179,14 @@ export const updateEmployeeData = async (req, res) => {
     const {
         national_id, employee_name,
         username, gender,
-        position, join_date,
+        position, designation, join_date,
         status, access_role
     } = req.body;
+
+    const designationError = validateDesignation(designation);
+    if (designationError) {
+        return res.status(422).json({ msg: designationError });
+    }
 
     try {
         await EmployeeData.update({
@@ -174,6 +195,7 @@ export const updateEmployeeData = async (req, res) => {
             username: username,
             gender: gender,
             position: position,
+            designation: designation,
             join_date: join_date,
             status: status,
             access_role: access_role
