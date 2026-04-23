@@ -1,0 +1,38 @@
+######################
+###### Report #######
+######################
+
+
+########### Report Salary ###########
+
+### get All Data Report Salary
+GET http://localhost:5000/report/salary
+
+### get All Data Report Salary By Name
+GET http://localhost:5000/report/salary/name/nana
+
+### get All Data Report Salary By Month
+GET http://localhost:5000/report/salary/month/januari
+
+### get All Data Report Salary By Year
+GET http://localhost:5000/report/salary/year/2023
+
+
+
+########### Report Attendance ###########
+### get All Data Report Attendance By Month
+GET http://localhost:5000/report/attendance/month/maret
+
+### get All Data Report Attendance By Year
+GET http://localhost:5000/report/attendance/year/2021
+
+
+###########    Slip Salary    ###########
+### get Slip Salary By Name
+GET http://localhost:5000/report/salary_slip/name/caca
+
+### get Slip Salary By Month
+GET http://localhost:5000/report/salary_slip/month/maret
+
+### get Slip Salary By Year
+GET http://localhost:5000/report/salary_slip/year/2022

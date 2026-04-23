@@ -1,0 +1,101 @@
+######################
+#### Data Employee ####
+######################
+
+### get All Data Employee
+GET http://localhost:5000/employee_data
+
+
+### get Single Data Employee by ID
+GET http://localhost:5000/employee_data/id/2
+
+### get Single Data Employee by NATIONAL_ID
+GET http://localhost:5000/employee_data/national_id/223344
+
+### get Single Data Employee by NAME
+GET http://localhost:5000/employee_data/name/budi
+
+### Create Data Employee
+POST http://localhost:5000/employee_data
+Content-Type: application/json
+
+{
+    "national_id": 223344,
+    "employee_name": "Cecep",
+    "username": "cecep",
+    "password": "12345",
+    "confPassword": "12345",
+    "gender": "Male",
+    "position": "Operator Produksi",
+    "join_date": "11-02-2023",
+    "status": "Permanent Employee",
+    "photo": ,
+    "access_role": "employee"
+}
+
+
+
+### Update Data Employee
+PATCH  http://localhost:5000/employee_data/2
+Content-Type: application/json
+
+{
+    "national_id": 223344,
+    "employee_name": "Budi",
+    "username": "budi",
+    "gender": "Male",
+    "position": "Operator Produksi",
+    "join_date": "11-02-2023",
+    "status": "Permanent Employee",
+    "photo": ,
+    "access_role": "employee"
+}
+
+### Change Password Admin (All data employee)
+PATCH  http://localhost:5000/employee_data/2/change_password
+Content-Type: application/json
+
+{
+    "password":"budi",
+    "confPassword":"budi"
+}
+
+### Change Password Employee (Self)
+PATCH  http://localhost:5000/change_password
+Content-Type: application/json
+
+{
+    "password" : "update",
+    "confPassword" : "update"
+}
+
+
+### Delete Data Employee
+DELETE   http://localhost:5000/employee_data/1
+
+
+
+######################
+### Authentication ###
+######################
+
+### Login Employee
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "budi",
+    "password": "budi"
+}
+
+### Login Admin
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "aldi",
+    "password": "update"
+}
+
+### Me
+GET  http://localhost:5000/me

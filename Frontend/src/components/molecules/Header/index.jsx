@@ -1,6 +1,6 @@
 import React from 'react'
 import LogoSipeka from '../../../assets/images/logo/logo-sipeka.png'
-import { DropdownProfil, DarkModeSwitcher } from '../../../components'
+import { DropdownProfile, DarkModeSwitcher } from '../../../components'
 import { Link } from 'react-router-dom'
 
 const Header = (
@@ -67,7 +67,7 @@ const Header = (
                     <ul className='flex items-center gap-2 2xsm:gap-4'>
                         <DarkModeSwitcher />
                     </ul>
-                    <DropdownProfil />
+                    <DropdownProfile />
                 </div>
             </div>
         </header>

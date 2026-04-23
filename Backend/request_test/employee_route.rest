@@ -1,0 +1,34 @@
+######################
+### Route Employee ####
+######################
+
+### Login Employee
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "budi",
+    "password": "update"
+}
+
+### Testing Dashboard Employee
+GET http://localhost:5000/dashboard
+
+
+### View Data Salary By Month
+GET http://localhost:5000/salary_data/month/juni
+
+### View Data Salary By Year
+GET http://localhost:5000/salary_data/year/2023
+
+### Change Password Employee (Self)
+PATCH  http://localhost:5000/change_password
+Content-Type: application/json
+
+{
+    "password" : "update",
+    "confPassword" : "update"
+}
+
+### Logout User
+DELETE   http://localhost:5000/logout

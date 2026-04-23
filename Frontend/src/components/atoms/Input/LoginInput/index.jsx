@@ -35,7 +35,7 @@ function LoginInput() {
     } else if (isSuccess && user) {
       Swal.fire({
         icon: 'success',
-        title: 'Login Berhasil',
+        title: 'Login successful',
         text: message,
         timer: 1500,
       }).then(() => {

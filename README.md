@@ -162,13 +162,13 @@ This project was created using the following technologies.
     <tr >
       <td align="center">
         <a href="https://github.com/AldiRamdani0401">
-          <img width="200"  src="https://res.cloudinary.com/du541igfh/image/upload/v1690573793/Blog%20Portfolio%20Gilbert/Project/mern-penggajian-karyawan/Aldi_mkw04y.jpg" alt=""><br/>
+          <img width="200"  src="https://res.cloudinary.com/du541igfh/image/upload/v1690573793/Blog%20Portfolio%20Gilbert/Project/mern-pengsalaryan-karyawan/Aldi_mkw04y.jpg" alt=""><br/>
           <b>Aldi Ramdani</b>
         </a>
       </td>
       <td align="center">
         <a href="https://github.com/berthutapea">
-          <img width="200"  src="https://res.cloudinary.com/du541igfh/image/upload/v1690573793/Blog%20Portfolio%20Gilbert/Project/mern-penggajian-karyawan/Gilbert_zx9rbq.jpg" alt=""><br/>
+          <img width="200"  src="https://res.cloudinary.com/du541igfh/image/upload/v1690573793/Blog%20Portfolio%20Gilbert/Project/mern-pengsalaryan-karyawan/Gilbert_zx9rbq.jpg" alt=""><br/>
           <b>Gilbert Hutapea</b>
         </a>
       </td>

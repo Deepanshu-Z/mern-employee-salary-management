@@ -5,132 +5,132 @@ import { adminOnly, verifyUser } from '../middleware/AuthUser.js';
 
 /* === import Controllers === */
 import {
-    getDataPegawai,
-    getDataPegawaiByID,
-    createDataPegawai,
-    updateDataPegawai,
-    deleteDataPegawai,
-    getDataPegawaiByNik,
-    getDataPegawaiByName,
-} from '../controllers/DataPegawai.js';
+    getEmployeeData,
+    getEmployeeDataByID,
+    createEmployeeData,
+    updateEmployeeData,
+    deleteEmployeeData,
+    getEmployeeDataByNik,
+    getEmployeeDataByName,
+} from '../controllers/EmployeeData.js';
 
 import {
-    getDataJabatan,
-    createDataJabatan,
-    updateDataJabatan,
-    deleteDataJabatan,
-    getDataJabatanByID
-} from "../controllers/DataJabatan.js";
+    getPositionData,
+    createPositionData,
+    updatePositionData,
+    deletePositionData,
+    getPositionDataByID
+} from "../controllers/PositionData.js";
 
 import {
-    viewDataKehadiran,
-    createDataKehadiran,
-    updateDataKehadiran,
-    deleteDataKehadiran,
-    viewDataKehadiranByID,
-    viewDataGajiByName,
-} from "../controllers/TransaksiController.js";
+    viewAttendanceData,
+    createAttendanceData,
+    updateAttendanceData,
+    deleteAttendanceData,
+    viewAttendanceDataByID,
+    viewSalaryDataByName,
+} from "../controllers/TransactionController.js";
 
 import {
-    createDataPotonganGaji,
-    deleteDataPotongan,
-    viewDataPotonganByID,
-    updateDataPotongan,
-    viewDataPotongan
-} from "../controllers/TransaksiController.js";
+    createDeductionSalaryData,
+    deleteDeductionData,
+    viewDeductionDataByID,
+    updateDeductionData,
+    viewDeductionData
+} from "../controllers/TransactionController.js";
 
 import {
-    viewDataGajiPegawai,
-    viewDataGajiPegawaiByMonth,
-    viewDataGajiPegawaiByYear
-} from "../controllers/TransaksiController.js";
+    viewSalaryDataEmployee,
+    viewSalaryDataEmployeeByMonth,
+    viewSalaryDataEmployeeByYear
+} from "../controllers/TransactionController.js";
 
 import {
-    viewLaporanAbsensiPegawaiByMonth,
-    viewLaporanAbsensiPegawaiByYear,
-    viewLaporanGajiPegawai,
-    viewLaporanGajiPegawaiByMonth,
-    viewLaporanGajiPegawaiByName,
-    viewLaporanGajiPegawaiByYear,
-    viewSlipGajiByMonth,
-    viewSlipGajiByName,
-    viewSlipGajiByYear,
-} from "../controllers/LaporanController.js";
+    viewReportAttendanceEmployeeByMonth,
+    viewReportAttendanceEmployeeByYear,
+    viewReportSalaryEmployee,
+    viewReportSalaryEmployeeByMonth,
+    viewReportSalaryEmployeeByName,
+    viewReportSalaryEmployeeByYear,
+    viewSlipSalaryByMonth,
+    viewSlipSalaryByName,
+    viewSlipSalaryByYear,
+} from "../controllers/ReportController.js";
 
 import { LogOut, changePassword } from '../controllers/Auth.js';
 import {
-    dashboardPegawai,
-    viewDataGajiSinglePegawaiByMonth,
-    viewDataGajiSinglePegawaiByYear
-} from '../controllers/Pegawai.js';
+    dashboardEmployee,
+    viewSalaryDataSingleEmployeeByMonth,
+    viewSalaryDataSingleEmployeeByYear
+} from '../controllers/Employee.js';
 
 const router = express.Router();
 
 // Admin Route :
 
 /* ==== Master Data ==== */
-// Data Pegawai
-router.get('/data_pegawai', verifyUser, adminOnly, getDataPegawai);
-router.get('/data_pegawai/id/:id', verifyUser, adminOnly, getDataPegawaiByID);
-router.get('/data_pegawai/nik/:nik', verifyUser, adminOnly, getDataPegawaiByNik);
-router.get('/data_pegawai/name/:name', verifyUser, getDataPegawaiByName);
-router.post('/data_pegawai',verifyUser, adminOnly, createDataPegawai);
-router.patch('/data_pegawai/:id', verifyUser, adminOnly, updateDataPegawai);
-router.delete('/data_pegawai/:id', verifyUser, adminOnly, deleteDataPegawai);
-router.patch('/data_pegawai/:id/change_password', verifyUser, adminOnly, changePassword);
-// Data Jabatan
-router.get('/data_jabatan', verifyUser, adminOnly, getDataJabatan);
-router.get('/data_jabatan/:id', verifyUser, adminOnly, getDataJabatanByID);
-router.post('/data_jabatan', verifyUser, adminOnly, createDataJabatan);
-router.patch('/data_jabatan/:id', verifyUser, adminOnly, updateDataJabatan);
-router.delete('/data_jabatan/:id', verifyUser, adminOnly, deleteDataJabatan);
+// Data Employee
+router.get('/employee_data', verifyUser, adminOnly, getEmployeeData);
+router.get('/employee_data/id/:id', verifyUser, adminOnly, getEmployeeDataByID);
+router.get('/employee_data/national_id/:national_id', verifyUser, adminOnly, getEmployeeDataByNik);
+router.get('/employee_data/name/:name', verifyUser, getEmployeeDataByName);
+router.post('/employee_data',verifyUser, adminOnly, createEmployeeData);
+router.patch('/employee_data/:id', verifyUser, adminOnly, updateEmployeeData);
+router.delete('/employee_data/:id', verifyUser, adminOnly, deleteEmployeeData);
+router.patch('/employee_data/:id/change_password', verifyUser, adminOnly, changePassword);
+// Data Position
+router.get('/position_data', verifyUser, adminOnly, getPositionData);
+router.get('/position_data/:id', verifyUser, adminOnly, getPositionDataByID);
+router.post('/position_data', verifyUser, adminOnly, createPositionData);
+router.patch('/position_data/:id', verifyUser, adminOnly, updatePositionData);
+router.delete('/position_data/:id', verifyUser, adminOnly, deletePositionData);
 
-/* ==== Transaksi  ==== */
-// Data Kehadiran
-router.get('/data_kehadiran', verifyUser, adminOnly, viewDataKehadiran);
-router.get('/data_kehadiran/:id', verifyUser, adminOnly, viewDataKehadiranByID);
-router.post('/data_kehadiran',verifyUser, adminOnly, createDataKehadiran);
-router.patch('/data_kehadiran/update/:id',verifyUser, adminOnly, updateDataKehadiran);
-router.delete('/data_kehadiran/:id', verifyUser, adminOnly, deleteDataKehadiran);
-// Data Potongan
-router.get('/data_potongan', adminOnly, verifyUser, viewDataPotongan);
-router.get('/data_potongan/:id', adminOnly, verifyUser, viewDataPotonganByID);
-router.post('/data_potongan', adminOnly, verifyUser, createDataPotonganGaji);
-router.patch('/data_potongan/update/:id', adminOnly, verifyUser, updateDataPotongan);
-router.delete('/data_potongan/:id', adminOnly, verifyUser, deleteDataPotongan);
-// Data Gaji
-router.get('/data_gaji_pegawai', viewDataGajiPegawai);
-router.get('/data_gaji/name/:name', verifyUser, viewDataGajiByName);
-router.get('/data_gaji_pegawai/month/:month', viewDataGajiPegawaiByMonth);
-router.get('/data_gaji_pegawai/year/:year', viewDataGajiPegawaiByYear);
+/* ==== Transaction  ==== */
+// Data Attendance
+router.get('/attendance_data', verifyUser, adminOnly, viewAttendanceData);
+router.get('/attendance_data/:id', verifyUser, adminOnly, viewAttendanceDataByID);
+router.post('/attendance_data',verifyUser, adminOnly, createAttendanceData);
+router.patch('/attendance_data/update/:id',verifyUser, adminOnly, updateAttendanceData);
+router.delete('/attendance_data/:id', verifyUser, adminOnly, deleteAttendanceData);
+// Data Deduction
+router.get('/deduction_data', adminOnly, verifyUser, viewDeductionData);
+router.get('/deduction_data/:id', adminOnly, verifyUser, viewDeductionDataByID);
+router.post('/deduction_data', adminOnly, verifyUser, createDeductionSalaryData);
+router.patch('/deduction_data/update/:id', adminOnly, verifyUser, updateDeductionData);
+router.delete('/deduction_data/:id', adminOnly, verifyUser, deleteDeductionData);
+// Data Salary
+router.get('/employee_salary_data', viewSalaryDataEmployee);
+router.get('/salary_data/name/:name', verifyUser, viewSalaryDataByName);
+router.get('/employee_salary_data/month/:month', viewSalaryDataEmployeeByMonth);
+router.get('/employee_salary_data/year/:year', viewSalaryDataEmployeeByYear);
 
-/* ====  Laporan  ==== */
-// laporan Gaji Pegawai
-router.get('/laporan/gaji',verifyUser, adminOnly, viewLaporanGajiPegawai);
-router.get('/laporan/gaji/name/:name',verifyUser, adminOnly, viewLaporanGajiPegawaiByName);
-router.get('/laporan/gaji/month/:month', verifyUser, adminOnly,viewLaporanGajiPegawaiByMonth);
-router.get('/laporan/gaji/year/:year', verifyUser, adminOnly,viewLaporanGajiPegawaiByYear);
-// Laporan Absensi Pegawai
-router.get('/laporan/absensi/month/:month', verifyUser, adminOnly,viewLaporanAbsensiPegawaiByMonth);
-router.get('/laporan/absensi/year/:year', verifyUser, adminOnly,viewLaporanAbsensiPegawaiByYear);
-// Slip Gaji Pegawai
-router.get('/laporan/slip_gaji/name/:name', verifyUser, adminOnly,viewSlipGajiByName);
-router.get('/laporan/slip_gaji/month/:month',verifyUser, adminOnly, viewSlipGajiByMonth);
-router.get('/laporan/slip_gaji/year/:year',verifyUser, adminOnly, viewSlipGajiByYear);
+/* ====  Report  ==== */
+// report Salary Employee
+router.get('/report/salary',verifyUser, adminOnly, viewReportSalaryEmployee);
+router.get('/report/salary/name/:name',verifyUser, adminOnly, viewReportSalaryEmployeeByName);
+router.get('/report/salary/month/:month', verifyUser, adminOnly,viewReportSalaryEmployeeByMonth);
+router.get('/report/salary/year/:year', verifyUser, adminOnly,viewReportSalaryEmployeeByYear);
+// Report Attendance Employee
+router.get('/report/attendance/month/:month', verifyUser, adminOnly,viewReportAttendanceEmployeeByMonth);
+router.get('/report/attendance/year/:year', verifyUser, adminOnly,viewReportAttendanceEmployeeByYear);
+// Slip Salary Employee
+router.get('/report/salary_slip/name/:name', verifyUser, adminOnly,viewSlipSalaryByName);
+router.get('/report/salary_slip/month/:month',verifyUser, adminOnly, viewSlipSalaryByMonth);
+router.get('/report/salary_slip/year/:year',verifyUser, adminOnly, viewSlipSalaryByYear);
 
-/* ==== Ubah Password ==== */
+/* ==== Change Password ==== */
 router.patch('/change_password', verifyUser, changePassword);
 
 /* ==== Logout ==== */
 router.delete('/logout', LogOut);
 
-// Pegawai Route :
+// Employee Route :
 /* ==== Dashboard ==== */
-router.get('/dashboard', verifyUser, dashboardPegawai);
-/* ==== Data Gaji ==== */
-router.get('/data_gaji/month/:month', verifyUser, viewDataGajiSinglePegawaiByMonth);
-router.get('/data_gaji/year/:year', verifyUser, viewDataGajiSinglePegawaiByYear);
-/* ==== Ubah Password ==== */
+router.get('/dashboard', verifyUser, dashboardEmployee);
+/* ==== Data Salary ==== */
+router.get('/salary_data/month/:month', verifyUser, viewSalaryDataSingleEmployeeByMonth);
+router.get('/salary_data/year/:year', verifyUser, viewSalaryDataSingleEmployeeByYear);
+/* ==== Change Password ==== */
 router.patch('/change_password', verifyUser, changePassword);
 /* ==== Logout ==== */
 router.delete('/logout', LogOut);
